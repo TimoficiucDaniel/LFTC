@@ -1,0 +1,25 @@
+Alphabet:
+	a. Upper (A-Z) and lower case letters (a-z) of the English alphabet
+	b. Underline character '_'
+	c. Decimal digits 0 - 9 
+Lexic:
+	a. Special symbols :
+		- operators : + - * / < > <= >= <- <--
+		- separators :  ( ) ; { }
+		- keywords: 
+
+Types:
+	a. integer
+<nonzerodigit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
+<digit> ::= 0 | <nonzerodigit>
+<digits> ::= <digit> | <digits><digit>
+<integer> ::= 0 | <nonzerodigit><digits>
+	b. string
+<letter> ::= a | b | .. | z | A | B | .. | Z	
+<nonzerodigit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
+<digit> ::= 0 | <nonzerodigit>
+<symbol> ::= ! | @ | # | $ | % | ^ | & | * 
+<stringcharacter> ::= <letter> | <digit> | <symbol> 
+<stringcharacters> ::= <stringcharacter> | <stringcharacters><stringcharacter>
+<string> ::= '<stringcharacters>'
+
