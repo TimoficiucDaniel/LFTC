@@ -46,7 +46,7 @@
 
 <assignstmt> ::= <identifier> <- <value>
 
-<value> ::= <identifier> | <string> | <list> | <digits> | <expression>
+<value> ::= <identifier> | <string> | <list> | <integer> | <expression>
 
 <complexstmt> ::= <ifstmt> | <forstmt>
 
@@ -63,3 +63,5 @@
 <term> ::= <identifier> | <digits>
 
 <operation> ::= + | - | / | *
+
+<listelement> ::= <identifier>[<integer>]
