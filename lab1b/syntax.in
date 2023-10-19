@@ -1,0 +1,66 @@
+<nonzerodigit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
+
+<digit> ::= 0 | <nonzerodigit>
+
+<digits> ::= <digit> | <digits><digit>
+
+<integer> ::= 0 | <nonzerodigit><digits>
+
+<letter> ::= a | b | .. | z | A | B | .. | Z	
+
+<nonzerodigit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
+
+<digit> ::= 0 | <nonzerodigit>
+
+<symbol> ::= ! | @ | # | $ | % | ^ | & | * 
+
+<stringcharacter> ::= <letter> | <digit> | <symbol> 
+
+<stringcharacters> ::= <stringcharacter> | <stringcharacters><stringcharacter>
+
+<string> ::= '<stringcharacters>'
+
+<list> ::= [<mixedlist>]
+
+<mixedlist> ::= <integer> | <string> | <integer>,<mixedlist> | <string>,<mixedlist>
+
+<identifier> ::= <letter> | <letter><letters>
+
+<lettersanddigits> ::= <letter> | <digit> | <letter><lettersanddigits> | <digit><lettersanddigits>
+
+<program> ::= #<cmpdstmt>#
+
+<type> ::= integer | string 
+
+<declaration> ::= <type> <identifier>
+
+<listdeclaration> ::= list[<digits>] <identifier>
+
+<cmpdstmt> ::= <stmt>; | <stmt>;<cmpdstmt>
+
+<stmt> ::= <simplstmt> | <complexstmt>
+
+<simplstmt> ::= <assignstmt> | <iostmt> 
+
+<iostmt> ::= read <identifier> | println <identifier>
+
+<assignstmt> ::= <identifier> <- <value>
+
+<value> ::= <identifier> | <string> | <list> | <digits> | <expression>
+
+<complexstmt> ::= <ifstmt> | <forstmt>
+
+<ifstmt> ::= if(<condition>) then cmpdstmt endif |  if(<condition>) then cmpdstmt else cmpdstmt endif
+
+<condition> = <value><relation><value>
+
+<relation> ::=  < | <<- | ><- | > | <-- | <-
+
+<forstmt> ::= for( <declaration> ; <condition> ; <expression> ) cmpdstmt endfor
+
+<expression> ::= <term> |  <expression><operation><term> 
+
+<term> ::= <identifier> | <digits>
+
+<operation> ::= + | - | / | *
+
