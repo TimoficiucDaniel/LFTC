@@ -46,7 +46,7 @@
 
 <assignstmt> ::= <identifier> <- <value>
 
-<value> ::= <identifier> | <string> | <list> | <digits>
+<value> ::= <identifier> | <string> | <list> | <digits> | <expression>
 
 <complexstmt> ::= <ifstmt> | <forstmt>
 
@@ -56,4 +56,11 @@
 
 <relation> ::=  < | <<- | ><- | > | <-- | <-
 
-<forstmt> ::= for( <declaration> ; <condition> ; <condition> ) cmpdstmt endfor
+<forstmt> ::= for( <declaration> ; <condition> ; <expression> ) cmpdstmt endfor
+
+<expression> ::= <term> |  <expression><operation><term> 
+
+<term> ::= <identifier> | <digits>
+
+<operation> ::= + | - | / | *
+
