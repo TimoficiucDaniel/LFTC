@@ -1,19 +1,19 @@
 Alphabet:
 	a. Upper (A-Z) and lower case letters (a-z) of the English alphabet
 	b. Underline character '_'
-	c. Decimal digits 0 - 9 
+	c. Decimal digits 0 - 9 //As a suggestion, think about special characters (if you don't use them it should be fine)
 Lexic:
 	a. Special symbols :
 		- operators : + - * / < > <= >= <- <--
-		- separators :  ( ) ; { }
-		- keywords: 
+		- separators :  ( ) ; { } // # , space?
+		- keywords: //int, List, for, endfor, if, then, endif, else etc.
 
 Types:
 	a. integer
 <nonzerodigit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
 <digit> ::= 0 | <nonzerodigit>
 <digits> ::= <digit> | <digits><digit>
-<integer> ::= 0 | <nonzerodigit><digits>
+<integer> ::= 0 | <nonzerodigit><digits> //also, take into consideration negative numbers, since you are working with "integers"
 	b. string
 <letter> ::= a | b | .. | z | A | B | .. | Z	
 <nonzerodigit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
@@ -22,4 +22,4 @@ Types:
 <stringcharacter> ::= <letter> | <digit> | <symbol> 
 <stringcharacters> ::= <stringcharacter> | <stringcharacters><stringcharacter>
 <string> ::= '<stringcharacters>'
-
+//Identifiers?
