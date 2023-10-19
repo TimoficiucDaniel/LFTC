@@ -8,9 +8,9 @@
 
 <letter> ::= a | b | .. | z | A | B | .. | Z	
 
-<nonzerodigit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
+<nonzerodigit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 //written twice
 
-<digit> ::= 0 | <nonzerodigit>
+<digit> ::= 0 | <nonzerodigit> //written twice
 
 <symbol> ::= ! | @ | # | $ | % | ^ | & | * 
 
@@ -22,19 +22,19 @@
 
 <list> ::= [<mixedlist>]
 
-<mixedlist> ::= <integer> | <string> | <integer>,<mixedlist> | <string>,<mixedlist>
+<mixedlist> ::= <integer> | <string> | <integer>,<mixedlist> | <string>,<mixedlist> // you might want to use lists with identifiers at some point
 
-<identifier> ::= <letter> | <letter><letters>
+<identifier> ::= <letter> | <letter><letters> // write this in lexic.txt too
 
-<lettersanddigits> ::= <letter> | <digit> | <letter><lettersanddigits> | <digit><lettersanddigits>
+<lettersanddigits> ::= <letter> | <digit> | <letter><lettersanddigits> | <digit><lettersanddigits> // not sure what this is
 
 <program> ::= #<cmpdstmt>#
 
-<type> ::= integer | string 
+<type> ::= integer | string // tokens should be written between quotation marks
 
 <declaration> ::= <type> <identifier>
 
-<listdeclaration> ::= list[<digits>] <identifier>
+<listdeclaration> ::= list[<digits>] <identifier> // p3 declaration is not accordingly; also what is "[<digits>]"?
 
 <cmpdstmt> ::= <stmt>; | <stmt>;<cmpdstmt>
 
@@ -46,21 +46,21 @@
 
 <assignstmt> ::= <identifier> <- <value>
 
-<value> ::= <identifier> | <string> | <list> | <digits> | <expression>
+<value> ::= <identifier> | <string> | <list> | <digits> | <expression> //you should use <integer> instead of <digits>; with <digits> you can have values that start with 0
 
 <complexstmt> ::= <ifstmt> | <forstmt>
 
-<ifstmt> ::= if(<condition>) then cmpdstmt endif |  if(<condition>) then cmpdstmt else cmpdstmt endif
+<ifstmt> ::= if(<condition>) then cmpdstmt endif |  if(<condition>) then cmpdstmt else cmpdstmt endif // use <> for cmdstmt (<cmdstmt>)
 
 <condition> = <value><relation><value>
 
 <relation> ::=  < | <<- | ><- | > | <-- | <-
 
-<forstmt> ::= for( <declaration> ; <condition> ; <expression> ) cmpdstmt endfor
+<forstmt> ::= for( <declaration> ; <condition> ; <expression> ) cmpdstmt endfor // use <> for cmdstmt (<cmdstmt>)
 
 <expression> ::= <term> |  <expression><operation><term> 
 
-<term> ::= <identifier> | <digits>
+<term> ::= <identifier> | <digits> // same problem with <digits> again
 
-<operation> ::= + | - | / | *
+<operation> ::= + | - | / | * //think about operation oreder; / and * should be executed first
 
