@@ -44,22 +44,26 @@
 
 <assignstmt> ::= <identifier> <- <value>
 
-<value> ::= <identifier> | <string> | <list> | <integer> | <expression>
+<value> ::= <string> | <listelement> | <integer> 
 
 <complexstmt> ::= <ifstmt> | <forstmt>
 
 <ifstmt> ::= if(<condition>) then cmpdstmt endif |  if(<condition>) then cmpdstmt else cmpdstmt endif
 
-<condition> = <value><relation><value>
+<condition> = <expression><relation><expression>
 
 <relation> ::=  < | <<- | ><- | > | <-- | <-
 
 <forstmt> ::= for( <declaration> ; <condition> ; <expression> ) cmpdstmt endfor
 
-<expression> ::= <term> |  <expression><operation><term> 
+<expression> ::= <term> |  <expression><operationpriority2><term> 
 
-<term> ::= <identifier> | <digits>
+<term> ::= <term><operationpriority2><factor> | <factor>
 
-<operation> ::= + | - | / | *
+<factor> ::= (<expression>) | <identifier> | <value> 
+
+<operationpriority2> ::= + | - 
+
+<operationpriority1> ::= / | *
 
 <listelement> ::= <identifier>[<integer>]
