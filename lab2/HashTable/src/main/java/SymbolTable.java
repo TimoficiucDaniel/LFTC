@@ -20,4 +20,12 @@ public class SymbolTable {
     public Integer removeSymbol(String key){
         return symbolTable.remove(key);
     }
+
+    public int hashCode(String key){
+        return symbolTable.hashCode(key);
+    }
+    @Override
+    public String toString(){
+        return symbolTable.toString();
+    }
 }

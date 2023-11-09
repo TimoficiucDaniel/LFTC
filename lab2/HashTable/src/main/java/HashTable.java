@@ -15,7 +15,7 @@ public class HashTable<K,V> {
         }
     }
 
-    private int hashCode(K key){
+    public int hashCode(K key){
         int sum_chars = 0;
         char[] key_characters = ((String)key).toCharArray();
         for(char c: key_characters){
@@ -40,9 +40,7 @@ public class HashTable<K,V> {
         LinkedListNode<K,V> head = buckets.get(hash);
         while(head!=null){
             if(head.key.equals(key) && head.hash == hash) {
-                V oldValue = head.value;
-                head.value = value;
-                return oldValue;
+                return head.value;
             }
             head = head.next;
         }
@@ -56,7 +54,7 @@ public class HashTable<K,V> {
             }
             head.next = newNode;
         }
-        return null;
+        return value;
     }
 
     public V remove(K key){
@@ -82,5 +80,15 @@ public class HashTable<K,V> {
         }
 
         return head.value;
+    }
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < numberOfBuckets; i++) {
+            if (buckets.get(i) != null) {
+                str.append(buckets.get(i).key.toString()).append(" => ").append(i).append("\n");
+            }
+        }
+        return str.toString();
     }
 }

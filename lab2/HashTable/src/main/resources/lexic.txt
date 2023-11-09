@@ -4,7 +4,7 @@ Alphabet:
 	c. Decimal digits 0 - 9 
 Lexic:
 	a. Special symbols :
-		- operators : + - * / < > <<- ><- <- <--
+		- operators : + - * / < > <<- ><- <- <-- %
 		- separators :  ( ) ; { } []
 		- keywords: integer string if endif else for endfor list read println then
 	b. Identifiers
@@ -22,10 +22,10 @@ Types:
 <letter> ::= a | b | .. | z | A | B | .. | Z	
 <nonzerodigit> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
 <digit> ::= 0 | <nonzerodigit>
-<symbol> ::= ! | @ | # | $ | % | ^ | & | * 
+<symbol> ::= ! | @ | # | $ | % | ^ | & | * | _
 <stringcharacter> ::= <letter> | <digit> | <symbol> 
 <stringcharacters> ::= <stringcharacter> | <stringcharacters><stringcharacter>
 <string> ::= '<stringcharacters>'
 	c. list
 <list> ::= [<mixedlist>]
-<mixedlist> ::= <integer> | <string> | <integer>,<mixedlist> | <string>,<mixedlist>
+<mixedlist> ::= <integer> |  <integer>,<mixedlist>

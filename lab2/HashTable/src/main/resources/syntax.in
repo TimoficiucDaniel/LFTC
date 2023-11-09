@@ -20,7 +20,7 @@
 
 <list> ::= [<mixedlist>]
 
-<mixedlist> ::= <integer> | <string> | <integer>,<mixedlist> | <string>,<mixedlist>
+<mixedlist> ::= <integer> | <integer>,<mixedlist>
 
 <identifier> ::= <letter> | <letter><letters>
 

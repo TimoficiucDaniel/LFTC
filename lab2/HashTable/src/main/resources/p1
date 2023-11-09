@@ -8,12 +8,12 @@
             max <- a;
         else
             max <- c;
-		endif	
+        endif
     else if (b > c) then
         max <- b;
     else
         max <- c;
-	endif
-	endif
+    endif
+    endif
     println max;
 #
