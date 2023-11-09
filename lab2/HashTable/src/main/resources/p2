@@ -3,13 +3,13 @@
     int i;
     if (a<2) then
         println false
-	endif
+    endif
     if (a%2<--0)
         println false
-	endif	
+    endif
     for (i <- 3; i <<- a/2; i <- i+1 )
         if (a%i<--0)
             println false
-	endfor		
+    endfor
     println true
 #
