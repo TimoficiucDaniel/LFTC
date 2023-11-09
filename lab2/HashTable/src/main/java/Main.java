@@ -1,5 +1,15 @@
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        //testSymbolTable();
+        LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer("p3");
+        try {
+            lexicalAnalyzer.scan();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private static void testSymbolTable() {
         SymbolTable sym = new SymbolTable(98);
         sym.addSymbol("a",1);
         System.out.println(sym.getSymbolPosition("a"));

@@ -1,0 +1,19 @@
+#
+    int a-a <- 2;
+    int b <- 3;
+    int c <- 1 - $;
+    int max;
+    if (a-a > b) then
+        if (a-a > c) then
+            max <- a-a;
+        else
+            max <- c;
+		endif	
+    else if (b > c) then
+        max <- b;
+    else
+        max <- c;
+	endif
+	endif
+    println max;
+#
