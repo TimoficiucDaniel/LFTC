@@ -1,3 +1,5 @@
+import FA.FA;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -19,16 +21,24 @@ public class LexicalAnalyzer {
     private String lineString;
     private int line = 1;
     private int index;
+    private FA faInt;
+    private FA faIdentifier;
 
     public LexicalAnalyzer(String file) {
         this.symbolTable = new SymbolTable(100);
         this.PIF = new ArrayList<>();
         this.file = file;
+        try {
+            faInt = new FA("constFiniteAutomata");
+            faIdentifier = new FA("identifierFiniteAutomata");
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
 
     private void readOperatorsSeparatorsAndKeywords() throws FileNotFoundException {
-        File tokens = Paths.get("src","main","resources","tokens.in").toFile();
+        File tokens = Paths.get("HashTable","src","main","resources","tokens.in").toFile();
         Scanner scanner = new Scanner(tokens);
         String currentType = "nothing";
         while(scanner.hasNextLine()){
@@ -58,7 +68,7 @@ public class LexicalAnalyzer {
     //else lexical error ca nu i niciuna
     public void scan() throws Exception{
         readOperatorsSeparatorsAndKeywords();
-        File input = Paths.get("src","main","resources",file).toFile();
+        File input = Paths.get("HashTable","src","main","resources",file).toFile();
         Scanner scanner = new Scanner(input);
         while(scanner.hasNextLine()){
             lineString = scanner.nextLine();
@@ -69,14 +79,44 @@ public class LexicalAnalyzer {
             line ++;
         }
         try{
-            File pifOut = Paths.get("src","main","resources","out",file+"_PIF.out").toFile();
+            File pifOut = Paths.get("HashTable","src","main","resources","out",file+"_PIF.out").toFile();
             pifOut.createNewFile();
             FileWriter fileWriter = new FileWriter(pifOut);
             for(Pair s : PIF){
                 fileWriter.write(s.type + " -> " + s.position + "\n");
             }
             fileWriter.close();
-            File STOut = Paths.get("src","main","resources","out",file+"_ST.out").toFile();
+            File STOut = Paths.get("HashTable","src","main","resources","out",file+"_ST.out").toFile();
+            STOut.createNewFile();
+            fileWriter = new FileWriter(STOut);
+            fileWriter.write(symbolTable.toString());
+            fileWriter.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void scanFA() throws Exception{
+        readOperatorsSeparatorsAndKeywords();
+        File input = Paths.get("HashTable","src","main","resources",file).toFile();
+        Scanner scanner = new Scanner(input);
+        while(scanner.hasNextLine()){
+            lineString = scanner.nextLine();
+            index = 0;
+            while(index < lineString.length()){
+                detectAndProgress();
+            }
+            line ++;
+        }
+        try{
+            File pifOut = Paths.get("HashTable","src","main","resources","out",file+"_PIF.out").toFile();
+            pifOut.createNewFile();
+            FileWriter fileWriter = new FileWriter(pifOut);
+            for(Pair s : PIF){
+                fileWriter.write(s.type + " -> " + s.position + "\n");
+            }
+            fileWriter.close();
+            File STOut = Paths.get("HashTable","src","main","resources","out",file+"_ST.out").toFile();
             STOut.createNewFile();
             fileWriter = new FileWriter(STOut);
             fileWriter.write(symbolTable.toString());
@@ -103,10 +143,36 @@ public class LexicalAnalyzer {
         if(detectInt()){
             return;
         }
+        if(detectToken()){
+            return;
+        }
         if(detectIdentifier()){
             return;
         }
+        throw new Exception("LEXICAL ERROR AT LINE: " + line + " INDEX:" + index);
+    }
+
+    private void detectAndProgressFA() throws Exception {
+        if(Character.isWhitespace(lineString.charAt(index))) {
+            index++;
+            return;
+        }
+        if(detectListAccess()){
+            return;
+        }
+        if(detectList()){
+            return;
+        }
+        if(detectString()){
+            return;
+        }
+        if(detectIntFA()){
+            return;
+        }
         if(detectToken()){
+            return;
+        }
+        if(detectIdentifierFA()){
             return;
         }
         throw new Exception("LEXICAL ERROR AT LINE: " + line + " INDEX:" + index);
@@ -159,6 +225,39 @@ public class LexicalAnalyzer {
         return true;
     }
 
+    private boolean detectIntFA(){
+        int i = 1;
+        boolean found = false;
+        while(faInt.checkIfGood(lineString.substring(index,index+i))){
+            i++;
+            found = true;
+        }
+        if(found){
+            index += i;
+            String integer = lineString.substring(index,index+i);
+            int pos = symbolTable.addSymbol(integer,symbolTable.hashCode(integer));
+            PIF.add(new Pair("intConstant",pos));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean detectIdentifierFA(){
+        int i = 1;
+        boolean found = false;
+        while(faIdentifier.checkIfGood(lineString.substring(index,index+i))){
+            i++;
+            found = true;
+        }
+        if(found){
+            index += i;
+            String identifier = lineString.substring(index,index+i);
+            int pos = symbolTable.addSymbol(identifier,symbolTable.hashCode(identifier));
+            PIF.add(new Pair("id",pos));
+            return true;
+        }
+        return false;
+    }
     private boolean detectToken(){
         String possibleToken = lineString.substring(index).split(" ")[0];
         for(String operator: operators){
